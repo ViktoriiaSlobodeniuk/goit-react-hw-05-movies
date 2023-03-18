@@ -1,6 +1,38 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { FetchApi } from './FetchApi';
+
 const Cast = () => {
-  return <div> Cast😊</div>;
+  const [cast, setCast] = useState([]);
+
+  const { movieId } = useParams();
+
+  useEffect(() => {
+    FetchApi(`movie/${movieId}/credits`)
+      .then(resp => {
+        setCast(resp.data.cast);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, [movieId]);
+  return (
+    <ul>
+      {cast.map(({ id, profile_path, name, character }) => {
+        return (
+          <li key={id}>
+            <img
+              src={'https://image.tmdb.org/t/p/original/' + profile_path}
+              alt="Actor/ress portrait"
+              width={100}
+            />
+            <p>{name}</p>
+            <p>Character: {character}</p>
+          </li>
+        );
+      })}
+    </ul>
+  );
 };
 
 export default Cast;
-// запит на каст

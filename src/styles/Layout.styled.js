@@ -13,7 +13,8 @@ export const Nav = styled.nav`
 
 export const StyledLink = styled(NavLink)`
   text-decoration: none;
-  padding: 10px;
+  cursor: pointer;
+  padding: 15px;
   color: #000;
   font-weight: bold;
 

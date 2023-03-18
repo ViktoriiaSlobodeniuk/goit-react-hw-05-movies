@@ -9,7 +9,6 @@ const Home = () => {
     const endPoint = 'trending/movie/day';
     FetchApi(endPoint)
       .then(resp => {
-        console.log(resp.data.results);
         setMovieCards(resp.data.results);
       })
       .catch(error => {

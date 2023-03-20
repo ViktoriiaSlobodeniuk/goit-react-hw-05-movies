@@ -10,7 +10,6 @@ const Reviews = () => {
   useEffect(() => {
     FetchApi(`movie/${movieId}/reviews`)
       .then(resp => {
-        console.log(resp.data.results);
         setReviews(resp.data.results);
       })
       .catch(error => {

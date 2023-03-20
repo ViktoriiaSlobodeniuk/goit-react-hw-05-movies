@@ -16,21 +16,27 @@ const Cast = () => {
         console.log(error);
       });
   }, [movieId]);
-  return (
+  return cast.length === 0 ? (
+    'There is no cast onfo yet🌹'
+  ) : (
     <ul>
-      {cast.map(({ id, profile_path, name, character }) => {
-        return (
-          <li key={id}>
-            <img
-              src={'https://image.tmdb.org/t/p/original/' + profile_path}
-              alt="Actor/ress portrait"
-              width={100}
-            />
-            <p>{name}</p>
-            <p>Character: {character}</p>
-          </li>
-        );
-      })}
+      {cast
+        .filter(
+          (value, index) => index === cast.findIndex(v => v.id === value.id)
+        )
+        .map(({ id, profile_path, name, character }) => {
+          return (
+            <li key={id}>
+              <img
+                src={'https://image.tmdb.org/t/p/original/' + profile_path}
+                alt="Actor/ress portrait"
+                width={100}
+              />
+              <p>{name}</p>
+              <p>Character: {character}</p>
+            </li>
+          );
+        })}
     </ul>
   );
 };

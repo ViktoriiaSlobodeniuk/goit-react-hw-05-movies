@@ -6,8 +6,7 @@ const Home = () => {
   const [movieCards, setMovieCards] = useState([]);
 
   useEffect(() => {
-    const endPoint = 'trending/movie/day';
-    FetchApi(endPoint)
+    FetchApi('trending/movie/day')
       .then(resp => {
         setMovieCards(resp.data.results);
       })

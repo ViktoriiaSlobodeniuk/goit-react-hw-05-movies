@@ -16,7 +16,6 @@ const MoviesDetails = () => {
   useEffect(() => {
     FetchApi(`movie/${movieId}`)
       .then(resp => {
-        console.log(resp.data.poster_path);
         setTitle(resp.data.title);
         setOverview(resp.data.overview);
         setGenres(resp.data.genres);

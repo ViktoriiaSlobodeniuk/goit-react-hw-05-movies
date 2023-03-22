@@ -1,44 +1,57 @@
 import { FetchSearchApi } from 'components/FetchApi';
-import SearchForm from 'components/SearchForm';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 
 const Movies = () => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const onFormSubmit = inputValue => {
-    if (inputValue !== searchQuery) {
-      setSearchQuery(inputValue);
-      setMovies([]);
+  const query = searchParams.get('query') ?? '';
+
+  const location = useLocation();
+
+  const handleSubmit = evt => {
+    evt.preventDefault();
+    const inputValue = evt.currentTarget.elements.search.value;
+    if (inputValue.trim() === '') {
+      setSearchParams({});
+      toast('Сформуйте запит для пошуку');
+      return;
     }
+    setSearchParams({ query: inputValue });
   };
+
   useEffect(() => {
-    if (!searchQuery) {
+    if (query === null) {
+      setMovies([]);
       return;
     }
 
-    FetchSearchApi(searchQuery)
+    FetchSearchApi(query)
       .then(resp => {
-        console.log(resp.data.results);
         setMovies(resp.data.results);
       })
       .catch(error => {
         console.log(error);
       });
-  }, [searchQuery]);
+  }, [query, searchParams]);
 
   return (
     <>
-      <SearchForm onSubmit={onFormSubmit} />
-
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="search" autoComplete="off" autoFocus />
+        <button type="submit">Search</button>
+      </form>
       <ul>
         {movies.map(({ id, title }) => {
           return (
             <li key={id}>
-              <Link to={`${id}`}>{title}</Link>
+              <Link to={`${id}`} state={{ from: location }}>
+                {title}
+              </Link>
             </li>
           );
         })}

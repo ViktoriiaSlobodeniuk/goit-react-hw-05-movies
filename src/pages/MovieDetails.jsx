@@ -1,7 +1,8 @@
 import { FetchApi } from 'components/FetchApi';
 import { useEffect, useState } from 'react';
-import { Outlet, Link, useParams } from 'react-router-dom';
+import { Outlet, Link, useParams, useLocation } from 'react-router-dom';
 import { Container, List } from 'styles/MoviesDetails.styled';
+import { BackLink } from 'components/BackLink';
 
 const MoviesDetails = () => {
   const [title, setTitle] = useState('');
@@ -12,6 +13,9 @@ const MoviesDetails = () => {
   const [vote_average, setVote_average] = useState(null);
 
   const { movieId } = useParams();
+  const location = useLocation();
+
+  const backLinkHref = location.state?.from ?? '/movies';
 
   useEffect(() => {
     FetchApi(`movie/${movieId}`)
@@ -30,6 +34,7 @@ const MoviesDetails = () => {
 
   return (
     <>
+      <BackLink to={backLinkHref}>Back </BackLink>
       <Container>
         <div>
           <img

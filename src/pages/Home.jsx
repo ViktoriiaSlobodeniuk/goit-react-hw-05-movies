@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FetchApi } from 'components/FetchApi';
 
 const Home = () => {
   const [movieCards, setMovieCards] = useState([]);
-
+  const location = useLocation();
   useEffect(() => {
     FetchApi('trending/movie/day')
       .then(resp => {
@@ -22,7 +22,9 @@ const Home = () => {
         {movieCards.map(({ id, title }) => {
           return (
             <li key={id}>
-              <Link to={`movies/${id}`}>{title}</Link>
+              <Link to={`movies/${id}`} state={{ from: location }}>
+                {title}
+              </Link>
             </li>
           );
         })}

@@ -35,8 +35,6 @@ const Movies = () => {
     FetchSearchApi(query)
       .then(resp => {
         setMovies(resp.data.results);
-        console.log(resp.data.results);
-        console.log(resp.data.results);
       })
       .catch(error => {
         console.log(error);

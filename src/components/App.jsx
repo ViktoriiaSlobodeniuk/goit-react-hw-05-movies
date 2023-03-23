@@ -1,11 +1,19 @@
 import { Routes, Route } from 'react-router-dom';
+import { lazy } from 'react';
 
-import Home from 'pages/Home';
-import Movies from 'pages/Movies';
-import MoviesDetails from 'pages/MovieDetails';
-import Cast from './Cast';
-import Reviews from './Reviews';
+// import Home from 'pages/Home';
+// import Movies from 'pages/Movies';
+// import MoviesDetails from 'pages/MovieDetails';
+// import Cast from './Cast';
+// import Reviews from './Reviews';
+
 import Layout from './Layout';
+
+const Home = lazy(() => import('pages/Home'));
+const Movies = lazy(() => import('pages/Movies'));
+const MoviesDetails = lazy(() => import('pages/MovieDetails'));
+const Cast = lazy(() => import('./Cast'));
+const Reviews = lazy(() => import('./Reviews'));
 
 export const App = () => {
   return (
@@ -22,7 +30,4 @@ export const App = () => {
   );
 };
 
-//  ліниве завантаження
 // сісс
-// props
-// find double render

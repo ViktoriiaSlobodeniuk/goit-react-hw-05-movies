@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { FetchApi } from 'components/FetchApi';
+import { StyledLink, Title, TrendList } from 'styles/Home.styled';
 
 const Home = () => {
   const [movieCards, setMovieCards] = useState([]);
+
   const location = useLocation();
   useEffect(() => {
     FetchApi('trending/movie/day')
@@ -17,18 +19,27 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Популярне сьогодні</h1>
-      <ul>
-        {movieCards.map(({ id, title }) => {
+      <Title>Trending today</Title>
+      <TrendList>
+        {movieCards.map(({ id, title, poster_path }) => {
           return (
             <li key={id}>
-              <Link to={`movies/${id}`} state={{ from: location }}>
-                {title}
-              </Link>
+              <StyledLink to={`movies/${id}`} state={{ from: location }}>
+                <img
+                  src={
+                    poster_path !== null
+                      ? 'https://image.tmdb.org/t/p/original/' + poster_path
+                      : '../../public/images/image.jpg'
+                  }
+                  alt="poster"
+                  width={350}
+                />
+                <h3> {title}</h3>
+              </StyledLink>
             </li>
           );
         })}
-      </ul>
+      </TrendList>
     </div>
   );
 };

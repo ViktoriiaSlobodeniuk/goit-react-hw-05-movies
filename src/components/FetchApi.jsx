@@ -1,4 +1,5 @@
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 const KEY = `db4a3ae686a3cf9655de72dc5716eec8`;
 
@@ -17,3 +18,11 @@ export async function FetchSearchApi(query) {
 
   return response;
 }
+
+FetchApi.propTypes = {
+  endPoint: PropTypes.string.isRequired,
+};
+
+FetchSearchApi.propTypes = {
+  query: PropTypes.string.isRequired,
+};

@@ -1,8 +1,9 @@
 import { FetchApi } from 'components/FetchApi';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { Outlet, Link, useParams, useLocation } from 'react-router-dom';
 import { Container, List } from 'styles/MoviesDetails.styled';
 import { BackLink } from 'components/BackLink';
+import { useRef } from 'react';
 
 const MoviesDetails = () => {
   const [title, setTitle] = useState('');
@@ -15,7 +16,7 @@ const MoviesDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
 
-  const backLinkHref = location.state?.from ?? '/movies';
+  const backLinkHref = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     FetchApi(`movie/${movieId}`)
@@ -34,7 +35,7 @@ const MoviesDetails = () => {
 
   return (
     <>
-      <BackLink to={backLinkHref}>Back </BackLink>
+      <BackLink to={backLinkHref.current}>Back </BackLink>
       <Container>
         <div>
           <img
@@ -70,7 +71,9 @@ const MoviesDetails = () => {
           </li>
         </ul>
       </div>
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

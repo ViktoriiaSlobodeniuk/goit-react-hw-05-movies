@@ -17,7 +17,7 @@ const Cast = () => {
       });
   }, [movieId]);
   return cast.length === 0 ? (
-    'There is no cast onfo yet🌹'
+    'There is no cast info yet🌹'
   ) : (
     <ul>
       {cast

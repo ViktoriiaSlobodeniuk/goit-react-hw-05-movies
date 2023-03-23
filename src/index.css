@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-
+  background-color: #ea818f;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -17,4 +17,12 @@ code {
 
 main {
   padding-left: 15px;
+}
+
+li {
+  list-style: none;
+  padding-bottom: 5px;
+}
+a {
+  text-decoration: none;
 }

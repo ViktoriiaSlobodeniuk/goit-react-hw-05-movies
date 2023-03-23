@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-import { Link, useSearchParams, useLocation } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
+import { Form, Button } from 'styles/Movies.styled';
+import { StyledLink, TrendList } from 'styles/Home.styled';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -33,6 +35,8 @@ const Movies = () => {
     FetchSearchApi(query)
       .then(resp => {
         setMovies(resp.data.results);
+        console.log(resp.data.results);
+        console.log(resp.data.results);
       })
       .catch(error => {
         console.log(error);
@@ -41,21 +45,35 @@ const Movies = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="search" autoComplete="off" autoFocus />
-        <button type="submit">Search</button>
-      </form>
-      <ul>
-        {movies.map(({ id, title }) => {
+      <Form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="search"
+          autoComplete="off"
+          autoFocus
+          placeholder="lookup words..."
+        />
+        <Button type="submit">Search</Button>
+      </Form>
+      <TrendList>
+        {movies.map(({ id, title, poster_path }) => {
           return (
             <li key={id}>
-              <Link to={`${id}`} state={{ from: location }}>
-                {title}
-              </Link>
+              <StyledLink to={`${id}`} state={{ from: location }}>
+                <img
+                  src={
+                    poster_path !== null
+                      ? 'https://image.tmdb.org/t/p/original/' + poster_path
+                      : '/goit-react-hw-05-movies/images/image.jpg'
+                  }
+                  alt="poster"
+                />
+                <h3>{title}</h3>
+              </StyledLink>
             </li>
           );
         })}
-      </ul>
+      </TrendList>
     </>
   );
 };

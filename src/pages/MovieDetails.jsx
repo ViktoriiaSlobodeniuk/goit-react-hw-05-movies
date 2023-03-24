@@ -1,7 +1,14 @@
 import { FetchApi } from 'components/FetchApi';
 import { useEffect, useState, Suspense } from 'react';
 import { Outlet, Link, useParams, useLocation } from 'react-router-dom';
-import { Container, List } from 'styles/MoviesDetails.styled';
+import {
+  AddInfo,
+  AddList,
+  Item,
+  Container,
+  GenresList,
+  MovieCard,
+} from 'styles/MoviesDetails.styled';
 import { BackLink } from 'components/BackLink';
 import { useRef } from 'react';
 
@@ -34,9 +41,9 @@ const MoviesDetails = () => {
   }, [movieId]);
 
   return (
-    <>
+    <Container>
       <BackLink to={backLinkHref.current}>Back </BackLink>
-      <Container>
+      <MovieCard>
         <div>
           <img
             src={'https://image.tmdb.org/t/p/original/' + poster}
@@ -53,28 +60,28 @@ const MoviesDetails = () => {
           <h2>Overview</h2>
           <p>{overview}</p>
           <h3>Genres</h3>
-          <List>
+          <GenresList>
             {genres.map(({ name, id }) => {
               return <li key={id}>{name}</li>;
             })}
-          </List>
+          </GenresList>
         </div>
-      </Container>
-      <div>
-        <p>Additional information</p>
-        <ul>
-          <li>
+      </MovieCard>
+      <AddInfo>
+        <p>Additional information:</p>
+        <AddList>
+          <Item>
             <Link to="cast">Cast</Link>
-          </li>
-          <li>
+          </Item>
+          <Item>
             <Link to="reviews">Reviews</Link>
-          </li>
-        </ul>
-      </div>
+          </Item>
+        </AddList>
+      </AddInfo>
       <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
       </Suspense>
-    </>
+    </Container>
   );
 };
 

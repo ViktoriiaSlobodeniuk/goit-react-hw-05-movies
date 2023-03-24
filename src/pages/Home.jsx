@@ -41,7 +41,6 @@ const Home = () => {
                           : '../../public/images/image.jpg'
                       }
                       alt="poster"
-                      // width={150}
                     />
                   </div>
 

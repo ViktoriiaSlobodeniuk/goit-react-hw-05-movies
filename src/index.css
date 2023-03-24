@@ -15,14 +15,21 @@ code {
     monospace;
 }
 
-main {
-  padding-left: 15px;
-}
-
 li {
   list-style: none;
-  padding-bottom: 5px;
 }
 a {
   text-decoration: none;
+}
+h1,
+h2,
+h3,
+ul {
+  margin: 0;
+  padding: 0;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }

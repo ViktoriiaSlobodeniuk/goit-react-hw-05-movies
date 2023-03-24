@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 import { useSearchParams, useLocation } from 'react-router-dom';
 import { Form, Button } from 'styles/Movies.styled';
-import { StyledLink, TrendList } from 'styles/Home.styled';
+import { Item, StyledLink, SubTitle, TrendList } from 'styles/Home.styled';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -56,19 +56,22 @@ const Movies = () => {
       <TrendList>
         {movies.map(({ id, title, poster_path }) => {
           return (
-            <li key={id}>
+            <Item key={id}>
               <StyledLink to={`${id}`} state={{ from: location }}>
-                <img
-                  src={
-                    poster_path !== null
-                      ? 'https://image.tmdb.org/t/p/original/' + poster_path
-                      : '/goit-react-hw-05-movies/images/image.jpg'
-                  }
-                  alt="poster"
-                />
-                <h3>{title}</h3>
+                <div>
+                  <img
+                    src={
+                      poster_path !== null
+                        ? 'https://image.tmdb.org/t/p/original/' + poster_path
+                        : '/goit-react-hw-05-movies/images/image.jpg'
+                    }
+                    alt="poster"
+                  />
+                </div>
+
+                <SubTitle>{title}</SubTitle>
               </StyledLink>
-            </li>
+            </Item>
           );
         })}
       </TrendList>

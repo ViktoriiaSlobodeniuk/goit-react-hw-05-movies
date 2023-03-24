@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FetchApi } from 'components/FetchApi';
-import { StyledLink, Title, TrendList } from 'styles/Home.styled';
+import {
+  Container,
+  ImgTumb,
+  Item,
+  StyledLink,
+  SubTitle,
+  Title,
+  TrendList,
+} from 'styles/Home.styled';
 
 const Home = () => {
   const [movieCards, setMovieCards] = useState([]);
@@ -18,29 +26,34 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <Title>Trending today</Title>
-      <TrendList>
-        {movieCards.map(({ id, title, poster_path }) => {
-          return (
-            <li key={id}>
-              <StyledLink to={`movies/${id}`} state={{ from: location }}>
-                <img
-                  src={
-                    poster_path !== null
-                      ? 'https://image.tmdb.org/t/p/original/' + poster_path
-                      : '../../public/images/image.jpg'
-                  }
-                  alt="poster"
-                  width={350}
-                />
-                <h3> {title}</h3>
-              </StyledLink>
-            </li>
-          );
-        })}
-      </TrendList>
-    </div>
+      <Container>
+        <TrendList>
+          {movieCards.map(({ id, title, poster_path }) => {
+            return (
+              <Item key={id}>
+                <StyledLink to={`movies/${id}`} state={{ from: location }}>
+                  <div>
+                    <img
+                      src={
+                        poster_path !== null
+                          ? 'https://image.tmdb.org/t/p/original/' + poster_path
+                          : '../../public/images/image.jpg'
+                      }
+                      alt="poster"
+                      // width={150}
+                    />
+                  </div>
+
+                  <SubTitle> {title}</SubTitle>
+                </StyledLink>
+              </Item>
+            );
+          })}
+        </TrendList>
+      </Container>
+    </>
   );
 };
 

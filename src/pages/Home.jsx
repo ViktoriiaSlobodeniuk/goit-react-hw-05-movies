@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import { FetchApi } from 'components/FetchApi';
 import {
   Container,
-  ImgTumb,
   Item,
   StyledLink,
   SubTitle,
